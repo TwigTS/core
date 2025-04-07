@@ -1,3 +1,3 @@
-import {Bean} from 'decorators/Bean'
+import {Bean} from './decorators/Bean'
 
 export {Bean}
