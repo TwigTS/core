@@ -1,20 +1,53 @@
 {
-  "compilerOptions": {
-    /* Base Options: */
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "target": "es2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    /* Strictness */
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    /* If NOT transpiling with TypeScript: */
-    "moduleResolution": "nodenext",
-    "module": "ESNext",
-    "noEmit": true,
-    /* If your code runs in the DOM: */
-    "lib": ["es2022", "dom", "dom.iterable"],
+	"include": ["src", "types", "test"],
+	"exclude": [
+		"test",
+		"metrics/test/**/*",
+		"*.test.ts",
+		"src/**/*.test.ts",
+		"src/**/*.u.test.ts",
+		"src/**/*.i.test.ts"
+	],
+	"compilerOptions": {
+
+	// TYPE CHECKING - strict family options: alwaysStrict, strictNullChecks, strictBindCallApply, strictFunctionTypes, strictPropertyInitialization, noImplicitAny, noImplicitThis, useUnknownInCatchVariables
+		"strict": true, 							// Enabling strict mode is equivalent to enabling all strict family options
+		"strictPropertyInitialization": false,					
+		"allowUnreachableCode": false, 				// Warns on unreachable code
+		"allowUnusedLabels": false, 				// Warns on unused labels
+		"noFallthroughCasesInSwitch": true, 		// Warns on fall-through cases in switch statements
+		"noUnusedLocals": true, 					// Report errors on unused locals.
+		"noUnusedParameters": false, 				// Report errors on unused parameters.
+		// "exactOptionalPropertyTypes": true,      // FAILS! Warn about non-optional properties in objects
+		// "noImplicitOverride": true,              // FAILS! Raise error on 'override' with an implied any return type.
+		// "noImplicitReturns": true,               // FAILS! Report errors when not all code paths in function return a value.
+		// "noPropertyAccessFromIndexSignature": true, // FAILSS!Warns on property access from an index signature
+		// "noUncheckedIndexedAccess": true,        // FAILS!Include 'undefined' in index signature results
+
+	// MODULES
+		"target": "ES2020", 						// Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'.
+		"module": "commonjs", 						// We must stay with Node16 since we use both require and import statements: https://www.typescriptlang.org/docs/handbook/modules/theory.html#the-module-output-format
+		"moduleResolution": "node",                 // Default. We cannot go higher than node10
+		"resolveJsonModule": true,				  	// Allows importing json modules with like so: import x from "./x.json"; Used by OpenApi, experimental
+		"rootDirs": ["./src", "./test"], 	        // List of virtual root folders whose combined content represents the structure of the project at runtime. Can be used to provide a separate “type layer” to files that are not TypeScript or JavaScript by providing a home for generated .d.ts files in another folder.
+
+	// CUSTOM TYPE or SOURCEMAP DECLARATIONS EMIT
+		"outDir": "dist", 							// All compiled files will be emitted in here.
+		"sourceMap": true, 							// Generates sourcemap files (.map), used by IDEs to display the original TypeScript source code.
+		"typeRoots": ["./types", "./node_modules/@types"], // If specified, types under typeRoots will be prioritized over */node_modules/@types; We should use middleware or utility types instead of this
+		"newLine": "lf",
+
+	// INTEROPERABILITY CONSTRAINTS
+	  	// "allowSyntheticDefaultImports": true,  	// AVOID! Allow default imports from modules with no default export. Allows for a code smell: ES6 modules spec states that a namespace import (import * as x) can only be an object. When TypeScript treats it the same as = require("x"), it make an object callable, like a function. That’s not valid according to the spec.
+		"esModuleInterop": true, 				  	// FAILS! AVOID! Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'.
+		"forceConsistentCasingInFileNames": true,   // Disallow inconsistently-cased references to the same file. Some OS treat casing a differently.
+
+	// PROJECT COMPILATION
+		"incremental": true,                     	// Enable incremental project compilation
+		"skipLibCheck": true, 						// AVOID! We fail this check. Skip type checking of declaration files.
+    
+	// NEST.JS
+		"emitDecoratorMetadata": true,
+    	"experimentalDecorators": true,
+	}
   }
-}

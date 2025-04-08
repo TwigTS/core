@@ -1,0 +1,1 @@
+export const LeafAlreadyExists = new Error("The leaf already exists in the context")

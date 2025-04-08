@@ -1,0 +1,11 @@
+{
+    "modulePaths": [
+        "<rootDir>/src",
+        "<rootDir>/node_modules"
+    ],
+    "moduleFileExtensions": [
+        "js",
+        "json"
+    ],
+    "testEnvironment": "node"
+}

@@ -1,0 +1,1 @@
+export const NonLeafError = new Error("This is not a Twig Leaf")
